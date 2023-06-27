@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QProgressBar
-from PyQt5.QtGui import QFont, QColor, QPalette
-from PyQt5.QtCore import Qt
+from PySide6.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QProgressBar
+from PySide6.QtGui import QFont, QColor, QPalette
+from PySide6.QtCore import Qt
 import sys
 
 app = QApplication([])
@@ -8,13 +8,13 @@ app = QApplication([])
 window = QWidget()
 
 # Set window attributes
-window.setWindowFlag(Qt.CustomizeWindowHint, True)
-window.setWindowFlag(Qt.FramelessWindowHint, True)
+window.setWindowFlag(Qt.WindowType.CustomizeWindowHint, True)
+window.setWindowFlag(Qt.WindowType.FramelessWindowHint, True)
 window.showFullScreen()
 
 # Set window background color
 palette = window.palette()
-palette.setColor(QPalette.Window, QColor(0, 0, 255))
+palette.setColor(QPalette.ColorGroup.All, QPalette.ColorRole.Window, QColor(0, 0, 255))
 window.setPalette(palette)
 
 # Create a label with bold text
@@ -24,7 +24,7 @@ font.setBold(True)
 label.setFont(font)
 
 # Set the label alignment to center
-label.setAlignment(Qt.AlignCenter)
+label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
 # Create a loading indicator (progress bar)
 loading = QProgressBar()
@@ -40,4 +40,4 @@ layout.addWidget(loading)
 
 window.show()
 
-sys.exit(app.exec_())
+sys.exit(app.exec())
