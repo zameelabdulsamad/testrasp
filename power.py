@@ -2,12 +2,11 @@ import subprocess
 import time
 import serial
 
-def turn_off_usb_device(device_path):
-    subprocess.run(['echo', '0', '>', f'{device_path}/power/autosuspend_delay_ms'])
-    subprocess.run(['echo', 'auto', '>', f'{device_path}/power/control'])
+def power_off_usb_device(device_path):
+    subprocess.run(['sudo', 'usbreset', device_path])
 
-def turn_on_usb_device(device_path):
-    subprocess.run(['echo', 'on', '>', f'{device_path}/power/control'])
+def power_on_usb_device(device_path):
+    subprocess.run(['sudo', 'usbreset', device_path])
 
 def read_qr_code():
     try:
@@ -21,10 +20,10 @@ def read_qr_code():
     # Determine the USB device path for /dev/ttyACM0
     device_path = ser.port
 
-    turn_off_usb_device(device_path)
+    power_off_usb_device(device_path)
     time.sleep(10)  # Sleep for 10 seconds
 
-    turn_on_usb_device(device_path)
+    power_on_usb_device(device_path)
 
     while True:
         line = ser.readline().decode().strip()
